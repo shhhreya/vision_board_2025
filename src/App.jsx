@@ -2,21 +2,40 @@
 import './App.css'
 import StarsCanvas from './components/StarBackground'
 import {motion} from "framer-motion"
+import { AnimatePresence } from 'framer-motion'
 
 
 function App() {
 
   const popup = {
-    hidden: { opacity: 1, scale: 0 },
+    hidden: { opacity: 0, scale: 0 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 3,
-        delay:6
+        duration: 4,
+        delay:6,
+        opacity:0,
       }   
+    },
+    exit: { opacity: 0, scale: 0 },
   }
-}
+  const fadetext = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 0,
+      scale: 1,
+      transition: {
+        duration: 10,
+        delay:6,
+        opacity:0,
+        
+      }   
+    },
+    exit: {
+      opacity:0,
+    }
+  }
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -128,14 +147,17 @@ function App() {
          </motion.div>
         </div>
          </div>
-
-        <motion.div className='w-full h-full flex justify-center items-center absolute top-0 ' variants={popup} initial="hidden"     animate="visible">
-         <div className='w-[45%] h-[90%] bg-black/80 flex justify-center items-center'>
-         <p className='text-gray-300 text-5xl rotate-20 text-center font-serif'>Manifest your DREAM..... <br/> 🎊🎊🎊</p>    
-
-         </div> 
-         </motion.div> 
-       </div>  
+       <AnimatePresence>
+        <motion.div className='w-full h-full flex justify-center items-center absolute top-0 ' variants={popup} initial="hidden" animate="visible" exit="exit"> 
+         
+          <motion.div className='w-[45%] h-[90%] bg-black/60 flex justify-center items-center'  >
+            <motion.div variants={fadetext}>
+             <p className='text-gray-300 text-5xl rotate-20 text-center font-serif'>Manifest your DREAM..... <br/> 🎊🎊🎊</p>    
+            </motion.div>
+          </motion.div> 
+        </motion.div> 
+       </AnimatePresence>
+      </div>  
 
        
     </>   
